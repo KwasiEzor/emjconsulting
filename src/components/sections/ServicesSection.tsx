@@ -47,10 +47,10 @@ export default function ServicesSection({ limit }: { limit?: number }) {
                       <Icon className="h-7 w-7" />
                     </div>
                     <h3 className="mb-2 font-display text-xl font-bold" style={{ color: 'var(--text)' }}>
-                      {lang === 'fr' ? service.title_fr : service.title_en}
+                      {lang === 'fr' ? service.titleFr : service.titleEn}
                     </h3>
                     <p className="text-sm leading-relaxed" style={{ color: 'var(--text-soft)' }}>
-                      {lang === 'fr' ? service.desc_fr : service.desc_en}
+                      {lang === 'fr' ? service.descriptionFr : service.descriptionEn}
                     </p>
                     <Link
                       to="/services"

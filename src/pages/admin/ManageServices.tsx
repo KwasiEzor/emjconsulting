@@ -32,14 +32,14 @@ export default function ManageServices() {
   };
 
   const filtered = items.filter((s) =>
-    s.title_fr.toLowerCase().includes(search.toLowerCase()) ||
-    s.title_en.toLowerCase().includes(search.toLowerCase())
+    s.titleFr.toLowerCase().includes(search.toLowerCase()) ||
+    s.titleEn.toLowerCase().includes(search.toLowerCase())
   );
 
   const columns = [
     { key: 'icon', label: 'Icon', render: (s: Service) => { const Icon = (Icons as any)[s.icon] || Icons.FileText; return <Icon className="h-5 w-5 text-gold-400" />; } },
-    { key: 'title_fr', label: 'Title (FR)', render: (s: Service) => <span className="font-medium text-white">{s.title_fr}</span> },
-    { key: 'title_en', label: 'Title (EN)' },
+    { key: 'titleFr', label: 'Title (FR)', render: (s: Service) => <span className="font-medium text-white">{s.titleFr}</span> },
+    { key: 'titleEn', label: 'Title (EN)' },
     { key: 'desc_fr', label: 'Description', render: (s: Service) => <span className="line-clamp-1 max-w-xs text-white/50">{s.desc_fr}</span> },
   ];
 
@@ -58,8 +58,8 @@ export default function ManageServices() {
               </Select>
             </Field>
             <div />
-            <Field label="Title (FR)" required><TextInput value={form.title_fr || ''} onChange={(e) => setForm({ ...form, title_fr: e.target.value })} required /></Field>
-            <Field label="Title (EN)" required><TextInput value={form.title_en || ''} onChange={(e) => setForm({ ...form, title_en: e.target.value })} required /></Field>
+            <Field label="Title (FR)" required><TextInput value={form.titleFr || ''} onChange={(e) => setForm({ ...form, titleFr: e.target.value })} required /></Field>
+            <Field label="Title (EN)" required><TextInput value={form.titleEn || ''} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} required /></Field>
           </FormGrid>
           <Field label="Description (FR)" required><TextArea rows={2} value={form.desc_fr || ''} onChange={(e) => setForm({ ...form, desc_fr: e.target.value })} required /></Field>
           <Field label="Description (EN)" required><TextArea rows={2} value={form.desc_en || ''} onChange={(e) => setForm({ ...form, desc_en: e.target.value })} required /></Field>
@@ -80,7 +80,7 @@ export default function ManageServices() {
         onClose={() => setDeleteItem(null)}
         onConfirm={async () => { await remove(deleteItem!.id); setDeleteItem(null); }}
         title="Delete Service"
-        message={`Are you sure you want to delete "${deleteItem?.title_fr}"? This cannot be undone.`}
+        message={`Are you sure you want to delete "${deleteItem?.titleFr}"? This cannot be undone.`}
       />
     </AdminLayout>
   );

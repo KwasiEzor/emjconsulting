@@ -20,8 +20,8 @@ export default function Blog() {
     if (query.trim()) {
       const q = query.toLowerCase();
       list = list.filter((p) =>
-        (lang === 'fr' ? p.title_fr : p.title_en).toLowerCase().includes(q) ||
-        (lang === 'fr' ? p.excerpt_fr : p.excerpt_en).toLowerCase().includes(q)
+        (lang === 'fr' ? p.titleFr : p.titleEn).toLowerCase().includes(q) ||
+        (lang === 'fr' ? p.excerptFr : p.excerptEn).toLowerCase().includes(q)
       );
     }
     return list;
@@ -98,7 +98,7 @@ export default function Blog() {
                     style={{ boxShadow: '0 10px 40px -12px var(--shadow-color)' }}
                   >
                     <div className="relative aspect-video overflow-hidden">
-                      <img src={post.image} alt={lang === 'fr' ? post.title_fr : post.title_en} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <img src={post.image} alt={lang === 'fr' ? post.titleFr : post.titleEn} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                       <div className="absolute left-3 top-3 rounded-full glass-strong px-3 py-1 text-xs font-semibold text-gold-400">{categoryLabel(post.category, lang)}</div>
                     </div>
                     <div className="flex flex-1 flex-col p-6">
@@ -106,8 +106,8 @@ export default function Blog() {
                         <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{new Date(post.created_at).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US')}</span>
                         <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{post.read_time} min</span>
                       </div>
-                      <h3 className="mb-2 font-display text-lg font-bold leading-snug" style={{ color: 'var(--text)' }}>{lang === 'fr' ? post.title_fr : post.title_en}</h3>
-                      <p className="mb-4 line-clamp-3 flex-1 text-sm" style={{ color: 'var(--text-soft)' }}>{lang === 'fr' ? post.excerpt_fr : post.excerpt_en}</p>
+                      <h3 className="mb-2 font-display text-lg font-bold leading-snug" style={{ color: 'var(--text)' }}>{lang === 'fr' ? post.titleFr : post.titleEn}</h3>
+                      <p className="mb-4 line-clamp-3 flex-1 text-sm" style={{ color: 'var(--text-soft)' }}>{lang === 'fr' ? post.excerptFr : post.excerptEn}</p>
                       <div className="flex items-center justify-between">
                         <span className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-soft)' }}><User className="h-3.5 w-3.5" />{post.author}</span>
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 transition-all hover:gap-2.5">{t.common.readMore} <ArrowRight className="h-4 w-4" /></span>

@@ -52,7 +52,7 @@ export default function Home() {
                   style={{ boxShadow: '0 10px 40px -12px var(--shadow-color)' }}
                 >
                   <div className="relative aspect-video overflow-hidden">
-                    <img src={post.image} alt={lang === 'fr' ? post.title_fr : post.title_en} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img src={post.image} alt={lang === 'fr' ? post.titleFr : post.titleEn} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute left-3 top-3 rounded-full glass-strong px-3 py-1 text-xs font-semibold text-gold-400">
                       {categoryLabel(post.category, lang)}
                     </div>
@@ -64,10 +64,10 @@ export default function Home() {
                       <span>{post.read_time} min</span>
                     </div>
                     <h3 className="mb-2 font-display text-lg font-bold leading-snug" style={{ color: 'var(--text)' }}>
-                      {lang === 'fr' ? post.title_fr : post.title_en}
+                      {lang === 'fr' ? post.titleFr : post.titleEn}
                     </h3>
                     <p className="line-clamp-2 text-sm" style={{ color: 'var(--text-soft)' }}>
-                      {lang === 'fr' ? post.excerpt_fr : post.excerpt_en}
+                      {lang === 'fr' ? post.excerptFr : post.excerptEn}
                     </p>
                     <Link to="/blog" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 transition-all hover:gap-2.5">
                       {t.common.readMore} <ArrowRight className="h-4 w-4" />

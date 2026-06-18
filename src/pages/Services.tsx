@@ -38,8 +38,11 @@ export default function Services() {
             <div className="space-y-8">
               {(services || []).map((service, i) => {
                 const Icon = (Icons as any)[service.icon] || Icons.FileText;
-                const benefits = (lang === 'fr' ? service.benefits_fr : service.benefits_en).split('\n').filter(Boolean);
-                const processSteps = (lang === 'fr' ? service.process_fr : service.process_en).split('\n').filter(Boolean);
+                // Handle JSONB structure from database
+                const benefits = service.benefits?.[lang] || service.benefits?.fr || [];
+                const processSteps = Array.isArray(service.process)
+                  ? service.process.map((p: any) => lang === 'fr' ? p.titleFr : p.titleEn)
+                  : [];
                 const reversed = i % 2 === 1;
                 return (
                   <motion.div
@@ -56,10 +59,10 @@ export default function Services() {
                         <Icon className="h-8 w-8" />
                       </div>
                       <h2 className="mb-3 font-display text-2xl font-bold sm:text-3xl" style={{ color: 'var(--text)' }}>
-                        {lang === 'fr' ? service.title_fr : service.title_en}
+                        {lang === 'fr' ? service.titleFr : service.titleEn}
                       </h2>
                       <p className="leading-relaxed" style={{ color: 'var(--text-soft)' }}>
-                        {lang === 'fr' ? service.desc_fr : service.desc_en}
+                        {lang === 'fr' ? service.descriptionFr : service.descriptionEn}
                       </p>
                       <Link to="/appointment" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gold-gradient px-6 py-3 text-sm font-semibold text-navy-900 transition-transform hover:scale-105 shimmer">
                         {t.common.bookNow} <ArrowRight className="h-4 w-4" />

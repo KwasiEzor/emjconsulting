@@ -36,11 +36,11 @@ export default function ManageBlog() {
     if (!error) setModalOpen(false);
   };
 
-  const filtered = items.filter((p) => p.title_fr.toLowerCase().includes(search.toLowerCase()) || p.title_en.toLowerCase().includes(search.toLowerCase()));
+  const filtered = items.filter((p) => p.titleFr.toLowerCase().includes(search.toLowerCase()) || p.titleEn.toLowerCase().includes(search.toLowerCase()));
 
   const columns = [
     { key: 'image', label: 'Image', render: (p: BlogPost) => <img src={p.image} alt="" className="h-10 w-14 rounded object-cover" /> },
-    { key: 'title_fr', label: 'Title (FR)', render: (p: BlogPost) => <span className="font-medium text-white">{p.title_fr}</span> },
+    { key: 'titleFr', label: 'Title (FR)', render: (p: BlogPost) => <span className="font-medium text-white">{p.titleFr}</span> },
     { key: 'category', label: 'Category', render: (p: BlogPost) => <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs">{p.category}</span> },
     { key: 'author', label: 'Author' },
     { key: 'read_time', label: 'Read', render: (p: BlogPost) => <span>{p.read_time} min</span> },
@@ -55,8 +55,8 @@ export default function ManageBlog() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editItem ? 'Edit Post' : 'Add Post'} maxWidth="max-w-3xl">
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormGrid>
-            <Field label="Title (FR)" required><TextInput value={form.title_fr || ''} onChange={(e) => setForm({ ...form, title_fr: e.target.value })} required /></Field>
-            <Field label="Title (EN)" required><TextInput value={form.title_en || ''} onChange={(e) => setForm({ ...form, title_en: e.target.value })} required /></Field>
+            <Field label="Title (FR)" required><TextInput value={form.titleFr || ''} onChange={(e) => setForm({ ...form, titleFr: e.target.value })} required /></Field>
+            <Field label="Title (EN)" required><TextInput value={form.titleEn || ''} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} required /></Field>
           </FormGrid>
           <FormGrid>
             <Field label="Category" required>
@@ -70,10 +70,10 @@ export default function ManageBlog() {
             <Field label="Image Path" required><TextInput value={form.image || ''} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="/images/blog-1.jpg" required /></Field>
             <Field label="Read Time (min)" required><TextInput type="number" min="1" value={form.read_time ?? ''} onChange={(e) => setForm({ ...form, read_time: Number(e.target.value) })} required /></Field>
           </FormGrid>
-          <Field label="Excerpt (FR)" required><TextArea rows={2} value={form.excerpt_fr || ''} onChange={(e) => setForm({ ...form, excerpt_fr: e.target.value })} required /></Field>
-          <Field label="Excerpt (EN)" required><TextArea rows={2} value={form.excerpt_en || ''} onChange={(e) => setForm({ ...form, excerpt_en: e.target.value })} required /></Field>
-          <Field label="Content (FR)" required><TextArea rows={5} value={form.content_fr || ''} onChange={(e) => setForm({ ...form, content_fr: e.target.value })} required /></Field>
-          <Field label="Content (EN)" required><TextArea rows={5} value={form.content_en || ''} onChange={(e) => setForm({ ...form, content_en: e.target.value })} required /></Field>
+          <Field label="Excerpt (FR)" required><TextArea rows={2} value={form.excerptFr || ''} onChange={(e) => setForm({ ...form, excerptFr: e.target.value })} required /></Field>
+          <Field label="Excerpt (EN)" required><TextArea rows={2} value={form.excerptEn || ''} onChange={(e) => setForm({ ...form, excerptEn: e.target.value })} required /></Field>
+          <Field label="Content (FR)" required><TextArea rows={5} value={form.contentFr || ''} onChange={(e) => setForm({ ...form, contentFr: e.target.value })} required /></Field>
+          <Field label="Content (EN)" required><TextArea rows={5} value={form.contentEn || ''} onChange={(e) => setForm({ ...form, contentEn: e.target.value })} required /></Field>
           <FormActions saving={saving} onCancel={() => setModalOpen(false)} isEdit={!!editItem} />
         </form>
       </Modal>
@@ -83,7 +83,7 @@ export default function ManageBlog() {
         onClose={() => setDeleteItem(null)}
         onConfirm={async () => { await remove(deleteItem!.id); setDeleteItem(null); }}
         title="Delete Post"
-        message={`Delete "${deleteItem?.title_fr}"? This cannot be undone.`}
+        message={`Delete "${deleteItem?.titleFr}"? This cannot be undone.`}
       />
     </AdminLayout>
   );

@@ -41,7 +41,7 @@ export default function FaqSection() {
                     className="flex w-full items-center justify-between gap-4 p-5 text-left"
                   >
                     <span className="font-display text-base font-semibold sm:text-lg" style={{ color: 'var(--text)' }}>
-                      {lang === 'fr' ? faq.question_fr : faq.question_en}
+                      {lang === 'fr' ? faq.questionFr : faq.questionEn}
                     </span>
                     <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="shrink-0">
                       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gold-400/10 text-gold-400">
@@ -58,7 +58,7 @@ export default function FaqSection() {
                         transition={{ duration: 0.3 }}
                       >
                         <p className="px-5 pb-5 text-sm leading-relaxed" style={{ color: 'var(--text-soft)' }}>
-                          {lang === 'fr' ? faq.answer_fr : faq.answer_en}
+                          {lang === 'fr' ? faq.answerFr : faq.answerEn}
                         </p>
                       </motion.div>
                     )}

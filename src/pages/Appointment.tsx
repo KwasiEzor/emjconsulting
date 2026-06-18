@@ -137,11 +137,11 @@ export default function Appointment() {
                     <div className="grid gap-3 sm:grid-cols-2">
                       {(services || []).map((s) => {
                         const Icon = (Icons as any)[s.icon] || Icons.FileText;
-                        const active = service === (lang === 'fr' ? s.title_fr : s.title_en);
+                        const active = service === (lang === 'fr' ? s.titleFr : s.titleEn);
                         return (
-                          <button key={s.id} onClick={() => setService(lang === 'fr' ? s.title_fr : s.title_en)} className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-all ${active ? 'border-gold-400 bg-gold-400/10' : 'hover:border-gold-400/50'}`} style={{ borderColor: active ? undefined : 'var(--border)' }}>
+                          <button key={s.id} onClick={() => setService(lang === 'fr' ? s.titleFr : s.titleEn)} className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-all ${active ? 'border-gold-400 bg-gold-400/10' : 'hover:border-gold-400/50'}`} style={{ borderColor: active ? undefined : 'var(--border)' }}>
                             <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${active ? 'bg-gold-gradient text-navy-900' : 'bg-black/5'}`} style={{ color: active ? undefined : 'var(--text-soft)' }}><Icon className="h-5 w-5" /></div>
-                            <span className="text-sm font-medium" style={{ color: 'var(--text)' }}>{lang === 'fr' ? s.title_fr : s.title_en}</span>
+                            <span className="text-sm font-medium" style={{ color: 'var(--text)' }}>{lang === 'fr' ? s.titleFr : s.titleEn}</span>
                           </button>
                         );
                       })}

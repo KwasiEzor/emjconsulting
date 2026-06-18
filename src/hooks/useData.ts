@@ -79,7 +79,9 @@ export function useFetch<T>(endpoint: string) {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    fetch(`/api/${endpoint}`)
+    // Remove leading /api/ if present to avoid double prefix
+    const cleanEndpoint = endpoint.replace(/^\/api\//, '');
+    fetch(`/api/${cleanEndpoint}`)
       .then(res => res.json())
       .then(setData)
       .catch(setError)

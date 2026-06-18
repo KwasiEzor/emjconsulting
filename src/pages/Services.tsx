@@ -29,13 +29,13 @@ export default function Services() {
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {loading ? (
-            <div className="space-y-8">
+            <div className="space-y-6">
               {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="h-64 animate-pulse rounded-3xl" style={{ background: 'var(--bg-soft)' }} />
+                <div key={i} className="h-48 animate-pulse rounded-3xl" style={{ background: 'var(--bg-soft)' }} />
               ))}
             </div>
           ) : (
-            <div className="space-y-8">
+            <div className="space-y-6">
               {(services || []).map((service, i) => {
                 const Icon = (Icons as any)[service.icon] || Icons.FileText;
                 // Handle JSONB structure from database
@@ -43,57 +43,76 @@ export default function Services() {
                 const processSteps = Array.isArray(service.process)
                   ? service.process.map((p: any) => lang === 'fr' ? p.titleFr : p.titleEn)
                   : [];
-                const reversed = i % 2 === 1;
+
                 return (
                   <motion.div
                     key={service.id}
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-50px' }}
-                    transition={{ duration: 0.5 }}
-                    className="grid items-center gap-8 overflow-hidden rounded-3xl glass p-6 sm:p-10 lg:grid-cols-2"
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className="overflow-hidden rounded-3xl glass p-6 sm:p-8"
                     style={{ boxShadow: '0 10px 40px -12px var(--shadow-color)' }}
                   >
-                    <div className={reversed ? 'lg:order-2' : ''}>
-                      <div className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gold-gradient text-navy-900 shadow-lg">
-                        <Icon className="h-8 w-8" />
+                    <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                      {/* Icon - Left */}
+                      <div className="shrink-0">
+                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-gradient text-navy-900 shadow-lg">
+                          <Icon className="h-7 w-7" />
+                        </div>
                       </div>
-                      <h2 className="mb-3 font-display text-2xl font-bold sm:text-3xl" style={{ color: 'var(--text)' }}>
-                        {lang === 'fr' ? service.titleFr : service.titleEn}
-                      </h2>
-                      <p className="leading-relaxed" style={{ color: 'var(--text-soft)' }}>
-                        {lang === 'fr' ? service.descriptionFr : service.descriptionEn}
-                      </p>
-                      <Link to="/appointment" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gold-gradient px-6 py-3 text-sm font-semibold text-navy-900 transition-transform hover:scale-105 shimmer">
-                        {t.common.bookNow} <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </div>
-                    <div className={reversed ? 'lg:order-1' : ''}>
-                      <div className="grid gap-5 sm:grid-cols-2">
+
+                      {/* Content - Center */}
+                      <div className="flex-1 space-y-4">
                         <div>
-                          <h4 className="mb-3 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide text-gold-400">
-                            <CheckCircle2 className="h-4 w-4" /> {lang === 'fr' ? 'Avantages' : 'Benefits'}
-                          </h4>
-                          <ul className="space-y-2">
-                            {benefits.map((b, j) => (
-                              <li key={j} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-soft)' }}>
-                                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-400" /> {b}
-                              </li>
-                            ))}
-                          </ul>
+                          <h2 className="mb-2 font-display text-xl font-bold sm:text-2xl" style={{ color: 'var(--text)' }}>
+                            {lang === 'fr' ? service.titleFr : service.titleEn}
+                          </h2>
+                          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-soft)' }}>
+                            {lang === 'fr' ? service.descriptionFr : service.descriptionEn}
+                          </p>
                         </div>
-                        <div>
-                          <h4 className="mb-3 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide text-gold-400">
-                            <CheckCircle2 className="h-4 w-4" /> {lang === 'fr' ? 'Processus' : 'Process'}
-                          </h4>
-                          <ol className="space-y-2">
-                            {processSteps.map((p, j) => (
-                              <li key={j} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-soft)' }}>
-                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-400/20 text-[10px] font-bold text-gold-400">{j + 1}</span> {p}
-                              </li>
-                            ))}
-                          </ol>
-                        </div>
+                        <Link
+                          to="/appointment"
+                          className="inline-flex items-center gap-2 rounded-xl bg-gold-gradient px-5 py-2.5 text-sm font-semibold text-navy-900 transition-transform hover:scale-105 shimmer"
+                        >
+                          {t.common.bookNow} <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+
+                      {/* Details - Right */}
+                      <div className="flex-1 grid gap-6 sm:grid-cols-2 lg:gap-8">
+                        {benefits.length > 0 && (
+                          <div>
+                            <h4 className="mb-3 font-display text-xs font-bold uppercase tracking-wide text-gold-400">
+                              {lang === 'fr' ? 'Avantages' : 'Benefits'}
+                            </h4>
+                            <ul className="space-y-2">
+                              {benefits.map((b, j) => (
+                                <li key={j} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: 'var(--text-soft)' }}>
+                                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gold-400" /> {b}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {processSteps.length > 0 && (
+                          <div>
+                            <h4 className="mb-3 font-display text-xs font-bold uppercase tracking-wide text-gold-400">
+                              {lang === 'fr' ? 'Processus' : 'Process'}
+                            </h4>
+                            <ol className="space-y-2">
+                              {processSteps.map((p, j) => (
+                                <li key={j} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: 'var(--text-soft)' }}>
+                                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-400/20 text-[9px] font-bold text-gold-400">
+                                    {j + 1}
+                                  </span>
+                                  {p}
+                                </li>
+                              ))}
+                            </ol>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </motion.div>

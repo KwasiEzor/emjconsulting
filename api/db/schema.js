@@ -123,3 +123,16 @@ export const clients = pgTable('clients', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+// Testimonials
+export const testimonials = pgTable('testimonials', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name').notNull(),
+  role: varchar('role'),
+  content: text('content').notNull(),
+  imageUrl: varchar('image_url'),
+  rating: varchar('rating'),
+  featured: boolean('featured').default(false),
+  order: integer('order'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});

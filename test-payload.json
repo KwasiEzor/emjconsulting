@@ -1,0 +1,9 @@
+{
+  "service": "550e8400-e29b-41d4-a716-446655440000",
+  "date": "2026-06-20",
+  "time": "14:30",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "555-1234",
+  "notes": "Test via Drizzle ORM"
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Drizzle + Supabase</title>
+</head>
+<body>
+  <h1>Test Drizzle + Supabase Connection</h1>
+  <button onclick="testConnection()">Test GET Appointments</button>
+  <button onclick="testCreate()">Test CREATE Appointment</button>
+  <pre id="output"></pre>
+
+  <script>
+    const output = document.getElementById('output');
+
+    async function testConnection() {
+      try {
+        output.textContent = 'Testing...';
+        const res = await fetch('/api/appointments');
+        const data = await res.json();
+        output.textContent = JSON.stringify({ success: true, data }, null, 2);
+      } catch (err) {
+        output.textContent = JSON.stringify({ error: err.message }, null, 2);
+      }
+    }
+
+    async function testCreate() {
+      try {
+        output.textContent = 'Creating test appointment...';
+        const res = await fetch('/api/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service: 'test-service-' + Date.now(),
+            date: '2026-06-20',
+            time: '10:00',
+            name: 'Test User',
+            email: 'test@example.com',
+            phone: '555-1234',
+            notes: 'Test appointment via Drizzle'
+          })
+        });
+        const data = await res.json();
+        output.textContent = JSON.stringify({ success: true, data }, null, 2);
+      } catch (err) {
+        output.textContent = JSON.stringify({ error: err.message }, null, 2);
+      }
+    }
+  </script>
+</body>
+</html>

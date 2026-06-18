@@ -1,88 +1,166 @@
 import { useState, useEffect } from 'react';
+import * as api from '../lib/api-client';
 
+// Types
 export interface Service {
-  id: number;
+  id: string;
+  titleFr: string;
+  titleEn: string;
+  descriptionFr: string;
+  descriptionEn: string;
   icon: string;
-  title_fr: string;
-  title_en: string;
-  desc_fr: string;
-  desc_en: string;
-  benefits_fr: string;
-  benefits_en: string;
-  process_fr: string;
-  process_en: string;
+  slug: string;
+  benefits?: any;
+  process?: any;
+  price?: string;
+  duration?: string;
+  featured?: boolean;
+  order?: number;
 }
 
 export interface Destination {
-  id: number;
-  name_fr: string;
-  name_en: string;
-  flag: string;
-  image: string;
-  region: string;
-  desc_fr: string;
-  desc_en: string;
-  conditions_fr: string;
-  conditions_en: string;
-  documents_fr: string;
-  documents_en: string;
-  delay_days: string;
-  map_x: number;
-  map_y: number;
-}
-
-export interface Testimonial {
-  id: number;
-  name: string;
-  role_fr: string;
-  role_en: string;
-  avatar: string;
-  rating: number;
-  text_fr: string;
-  text_en: string;
-}
-
-export interface Faq {
-  id: number;
-  question_fr: string;
-  question_en: string;
-  answer_fr: string;
-  answer_en: string;
+  id: string;
+  nameFr: string;
+  nameEn: string;
+  slug: string;
+  flagEmoji: string;
+  imageUrl?: string;
+  descriptionFr: string;
+  descriptionEn: string;
+  visaDuration?: string;
+  requirements?: any;
+  featured?: boolean;
+  continent?: string;
+  order?: number;
 }
 
 export interface BlogPost {
-  id: number;
-  title_fr: string;
-  title_en: string;
-  excerpt_fr: string;
-  excerpt_en: string;
-  content_fr: string;
-  content_en: string;
-  category: string;
+  id: string;
+  titleFr: string;
+  titleEn: string;
+  slug: string;
+  excerptFr: string;
+  excerptEn: string;
+  contentFr: string;
+  contentEn: string;
+  imageUrl?: string;
+  categoryId?: string;
   author: string;
-  image: string;
-  read_time: number;
-  created_at: string;
+  status: string;
+  readingTime?: number;
+  publishedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export function useFetch<T>(url: string) {
-  const [data, setData] = useState<T | null>(null);
+export interface Faq {
+  id: string;
+  questionFr: string;
+  questionEn: string;
+  answerFr: string;
+  answerEn: string;
+  order?: number;
+}
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role?: string;
+  content: string;
+  imageUrl?: string;
+  rating?: string;
+  createdAt: string;
+}
+
+// Generic fetch hook
+export function useFetch<T>(endpoint: string) {
+  const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    let active = true;
-    setLoading(true);
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch');
-        return res.json();
-      })
-      .then((d) => { if (active) setData(d); })
-      .catch((e) => { if (active) setError(e.message); })
-      .finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, [url]);
+    fetch(`/api/${endpoint}`)
+      .then(res => res.json())
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, [endpoint]);
+
+  return { data, loading, error };
+}
+
+// Specific hooks
+export function useServices() {
+  const [data, setData] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    api.fetchServices()
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { data, loading, error };
+}
+
+export function useDestinations() {
+  const [data, setData] = useState<Destination[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    api.fetchDestinations()
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { data, loading, error };
+}
+
+export function useBlogPosts() {
+  const [data, setData] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    api.fetchBlogPosts()
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { data, loading, error };
+}
+
+export function useFAQs() {
+  const [data, setData] = useState<Faq[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    api.fetchFAQs()
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { data, loading, error };
+}
+
+export function useTestimonials() {
+  const [data, setData] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    api.fetchTestimonials()
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, []);
 
   return { data, loading, error };
 }

@@ -11,15 +11,27 @@ const PORT = 3001;
 const server = http.createServer(async (req, res) => {
   console.log(`${req.method} ${req.url}`);
 
-  // Test appointments endpoint
-  if (req.url === '/api/appointments') {
+  // Handle API endpoints
+  const apiRoutes = {
+    '/api/appointments': './api/appointments.js',
+    '/api/services': './api/services.js',
+    '/api/destinations': './api/destinations.js',
+    '/api/blog-posts': './api/blog-posts.js',
+    '/api/faqs': './api/faqs.js',
+    '/api/testimonials': './api/testimonials.js',
+    '/api/messages': './api/messages.js',
+    '/api/newsletter': './api/newsletter.js',
+  };
+
+  if (apiRoutes[req.url]) {
     try {
-      const handler = await import('./api/appointments.js');
+      const handler = await import(apiRoutes[req.url]);
 
       // Mock req/res for serverless function
       const mockReq = {
         method: req.method,
-        body: req.method === 'POST' ? await getBody(req) : {}
+        body: req.method === 'POST' ? await getBody(req) : {},
+        headers: req.headers
       };
 
       const mockRes = {

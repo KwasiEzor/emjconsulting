@@ -67,13 +67,13 @@ export default function TestimonialsSection() {
                   ))}
                 </div>
                 <p className="mb-8 text-lg leading-relaxed sm:text-xl" style={{ color: 'var(--text)' }}>
-                  "{lang === 'fr' ? current.text_fr : current.text_en}"
+                  "{current.content}"
                 </p>
                 <div className="flex items-center justify-center gap-4">
-                  <img src={current.avatar} alt={current.name} className="h-14 w-14 rounded-full object-cover ring-2 ring-gold-400/40" loading="lazy" />
+                  <img src={current.imageUrl} alt={current.name} className="h-14 w-14 rounded-full object-cover ring-2 ring-gold-400/40" loading="lazy" />
                   <div className="text-left">
                     <div className="font-display font-bold" style={{ color: 'var(--text)' }}>{current.name}</div>
-                    <div className="text-sm" style={{ color: 'var(--text-soft)' }}>{lang === 'fr' ? current.role_fr : current.role_en}</div>
+                    <div className="text-sm" style={{ color: 'var(--text-soft)' }}>{current.role}</div>
                   </div>
                 </div>
               </motion.div>

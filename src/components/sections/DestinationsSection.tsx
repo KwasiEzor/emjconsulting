@@ -36,7 +36,7 @@ export default function DestinationsSection({ limit }: { limit?: number }) {
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <img
-                    src={dest.image}
+                    src={dest.imageUrl}
                     alt={lang === 'fr' ? dest.nameFr : dest.nameEn}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"

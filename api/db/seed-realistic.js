@@ -69,42 +69,42 @@ async function seed() {
     await sql`
       INSERT INTO destinations (id, name_fr, name_en, slug, flag_emoji, image_url, description_fr, description_en, visa_duration, requirements, featured, continent, "order", created_at)
       VALUES
-        (gen_random_uuid(), 'Canada', 'Canada', 'canada', '🇨🇦', '/images/destinations/canada.jpg',
+        (gen_random_uuid(), 'Canada', 'Canada', 'canada', '🇨🇦', '/images/dest-canada.jpg',
          'Visa touristique, études et résidence permanente. Procédure en ligne simplifiée via AVE ou permis d''études. Taux d''approbation élevé.',
          'Tourist visa, studies, and permanent residence. Simplified online procedure via ETA or study permit. High approval rate.',
          '6 mois renouvelable',
          '{"documents": ["Passeport valide", "Preuve financière 10000 CAD", "Lettre invitation", "Assurance santé"], "processing": "4-6 semaines"}'::jsonb,
          true, 'Amérique du Nord', 1, now()),
 
-        (gen_random_uuid(), 'France', 'France', 'france', '🇫🇷', '/images/destinations/france.jpg',
+        (gen_random_uuid(), 'France', 'France', 'france', '🇫🇷', '/images/dest-france.jpg',
          'Visa Schengen court séjour (90 jours) et long séjour. Expertise sur visas étudiants, VLS-TS et titres de séjour.',
          'Schengen short-stay visa (90 days) and long-stay visa. Expertise in student visas, VLS-TS, and residence permits.',
          '90 jours (court séjour)',
          '{"documents": ["Passeport valide 3 mois", "Justificatifs financiers", "Réservation hôtel", "Assurance voyage 30000€"], "processing": "15-20 jours"}'::jsonb,
          true, 'Europe', 2, now()),
 
-        (gen_random_uuid(), 'États-Unis', 'United States', 'etats-unis', '🇺🇸', '/images/destinations/usa.jpg',
+        (gen_random_uuid(), 'États-Unis', 'United States', 'etats-unis', '🇺🇸', '/images/dest-usa.jpg',
          'Visa B1/B2 tourisme et affaires, visa F1 étudiant. Préparation intensive à l''entretien consulaire incluse.',
          'B1/B2 tourist and business visa, F1 student visa. Intensive preparation for consular interview included.',
          '180 jours maximum',
          '{"documents": ["Formulaire DS-160", "Photo identité", "Preuve attaches pays", "Relevés bancaires"], "processing": "3-5 semaines"}'::jsonb,
          true, 'Amérique du Nord', 3, now()),
 
-        (gen_random_uuid(), 'Royaume-Uni', 'United Kingdom', 'royaume-uni', '🇬🇧', '/images/destinations/uk.jpg',
+        (gen_random_uuid(), 'Royaume-Uni', 'United Kingdom', 'royaume-uni', '🇬🇧', '/images/dest-uk.jpg',
          'Standard Visitor Visa et Student Visa post-Brexit. Accompagnement sur les nouveaux systèmes en ligne.',
          'Standard Visitor Visa and Student Visa post-Brexit. Support with new online systems.',
          '6 mois (tourisme)',
          '{"documents": ["Passeport biométrique", "Preuve financière", "Lettre employeur", "Hébergement"], "processing": "3 semaines"}'::jsonb,
          true, 'Europe', 4, now()),
 
-        (gen_random_uuid(), 'Dubaï (EAU)', 'Dubai (UAE)', 'dubai', '🇦🇪', '/images/destinations/dubai.jpg',
+        (gen_random_uuid(), 'Dubaï (EAU)', 'Dubai (UAE)', 'dubai', '🇦🇪', '/images/dest-dubai.jpg',
          'Visa touristique 30/90 jours, visa investisseur et Golden Visa. Traitement ultra-rapide en 48-72h disponible.',
          '30/90 day tourist visa, investor visa, and Golden Visa. Ultra-fast 48-72h processing available.',
          '30 ou 90 jours',
          '{"documents": ["Copie passeport", "Photo", "Réservation vol", "Réservation hôtel"], "processing": "2-3 jours"}'::jsonb,
          false, 'Moyen-Orient', 5, now()),
 
-        (gen_random_uuid(), 'Allemagne', 'Germany', 'allemagne', '🇩🇪', '/images/destinations/germany.jpg',
+        (gen_random_uuid(), 'Allemagne', 'Germany', 'allemagne', '🇩🇪', '/images/dest-allemagne.jpg',
          'Visa Schengen et permis de résidence. Spécialisation visa job seeker et Blue Card EU pour professionnels qualifiés.',
          'Schengen visa and residence permit. Specialization in job seeker visa and EU Blue Card for skilled professionals.',
          '90 jours (Schengen)',
@@ -141,7 +141,7 @@ async function seed() {
          'Complete guide to building a strong Schengen visa application and increasing your chances of approval from the first attempt.',
          '<h2>Documents requis</h2><p>Pour un visa Schengen, vous devez fournir : passeport valide 3 mois après le retour, 2 photos d''identité récentes aux normes, attestation d''assurance voyage minimum 30 000€, justificatifs financiers (3 derniers relevés bancaires), réservation d''hébergement confirmée et billet d''avion aller-retour.</p><h2>Conseils pratiques</h2><p>Anticipez votre demande 3 mois avant le départ. Vérifiez que tous les documents sont traduits en français ou anglais si nécessaire. Préparez une lettre de motivation claire expliquant l''objet de votre voyage et vos attaches dans votre pays d''origine.</p><h2>Erreurs à éviter</h2><p>Ne jamais mentir sur vos revenus, ne pas oublier l''assurance voyage, éviter les incohérences entre vos documents. Un dossier incomplet est systématiquement refusé.</p>',
          '<h2>Required Documents</h2><p>For a Schengen visa, you must provide: valid passport for 3 months after return, 2 recent compliant ID photos, travel insurance certificate minimum €30,000, financial proof (last 3 bank statements), confirmed accommodation booking, and round-trip flight ticket.</p><h2>Practical Tips</h2><p>Submit your application 3 months before departure. Ensure all documents are translated into French or English if necessary. Prepare a clear cover letter explaining the purpose of your trip and your ties to your home country.</p><h2>Common Mistakes</h2><p>Never lie about your income, don''t forget travel insurance, avoid inconsistencies between documents. An incomplete application is systematically rejected.</p>',
-         'Marie Kouadio', '/images/blog/visa-schengen.jpg', ${catVisaId}, 'published', 8, now() - interval '5 days', now() - interval '5 days', now()),
+         'Marie Kouadio', '/images/blog-1.jpg', ${catVisaId}, 'published', 8, now() - interval '5 days', now() - interval '5 days', now()),
 
         (gen_random_uuid(),
          'Visa étudiant Canada : Les 5 erreurs fatales à éviter',
@@ -151,7 +151,7 @@ async function seed() {
          'Discover common mistakes that cause Canadian student visa refusals and how to avoid them.',
          '<h2>Erreur #1 : Preuve de fonds insuffisante</h2><p>Le Canada exige 10 000 CAD + frais de scolarité pour la première année. Montrez 6 mois d''historique bancaire stable.</p><h2>Erreur #2 : Lettre de motivation générique</h2><p>Personnalisez votre lettre : expliquez pourquoi ce programme, cette université, et comment cela s''inscrit dans votre projet professionnel.</p><h2>Erreur #3 : Manque de preuve d''attaches</h2><p>Démontrez que vous reviendrez : emploi garanti, famille, propriété dans votre pays.</p><h2>Erreur #4 : Incohérence du parcours</h2><p>Votre projet d''études doit être cohérent avec votre parcours académique et professionnel antérieur.</p><h2>Erreur #5 : Documents non traduits</h2><p>Tous les documents doivent être traduits par un traducteur assermenté.</p>',
          '<h2>Mistake #1: Insufficient Proof of Funds</h2><p>Canada requires CAD 10,000 + tuition fees for the first year. Show 6 months of stable banking history.</p><h2>Mistake #2: Generic Motivation Letter</h2><p>Personalize your letter: explain why this program, this university, and how it fits your career plan.</p><h2>Mistake #3: Lack of Proof of Ties</h2><p>Demonstrate you will return: guaranteed job, family, property in your country.</p><h2>Mistake #4: Inconsistent Background</h2><p>Your study plan must be consistent with your previous academic and professional background.</p><h2>Mistake #5: Untranslated Documents</h2><p>All documents must be translated by a certified translator.</p>',
-         'Kofi Mensah', '/images/blog/visa-canada.jpg', ${catVisaId}, 'published', 6, now() - interval '10 days', now() - interval '10 days', now()),
+         'Kofi Mensah', '/images/blog-2.jpg', ${catVisaId}, 'published', 6, now() - interval '10 days', now() - interval '10 days', now()),
 
         (gen_random_uuid(),
          'Réussir son entretien consulaire pour le visa USA',
@@ -161,7 +161,7 @@ async function seed() {
          'Expert tips to confidently approach your interview at the US embassy and maximize your chances of approval.',
          '<h2>Avant l''entretien</h2><p>Arrivez 30 minutes à l''avance. Apportez TOUS vos documents originaux (pas de copies). Habillez-vous de manière professionnelle mais sobre. Éteignez votre téléphone.</p><h2>Questions fréquentes</h2><p>"Pourquoi voulez-vous aller aux USA ?" - Soyez précis et honnête. "Qui financera votre voyage ?" - Montrez vos relevés bancaires. "Que faites-vous dans la vie ?" - Prouvez vos attaches professionnelles.</p><h2>Pendant l''entretien</h2><p>Regardez l''agent dans les yeux. Répondez de manière concise (30 secondes max). Ne mentez JAMAIS. Restez calme même si les questions sont directes.</p><h2>Après l''entretien</h2><p>Si approuvé, on garde votre passeport. Si refusé, demandez la raison (section 214b la plus courante). Vous pouvez repostuler après avoir corrigé les points faibles.</p>',
          '<h2>Before the Interview</h2><p>Arrive 30 minutes early. Bring ALL original documents (no copies). Dress professionally but conservatively. Turn off your phone.</p><h2>Common Questions</h2><p>"Why do you want to go to the USA?" - Be specific and honest. "Who will finance your trip?" - Show your bank statements. "What do you do for a living?" - Prove your professional ties.</p><h2>During the Interview</h2><p>Make eye contact with the officer. Answer concisely (30 seconds max). NEVER lie. Stay calm even if questions are direct.</p><h2>After the Interview</h2><p>If approved, they keep your passport. If refused, ask for the reason (section 214b most common). You can reapply after addressing weaknesses.</p>',
-         'Aminata Sow', '/images/blog/visa-usa.jpg', ${catVisaId}, 'published', 7, now() - interval '3 days', now() - interval '3 days', now())
+         'Aminata Sow', '/images/blog-3.jpg', ${catVisaId}, 'published', 7, now() - interval '3 days', now() - interval '3 days', now())
       ON CONFLICT DO NOTHING;
     `;
 

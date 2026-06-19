@@ -52,14 +52,14 @@ export default function Home() {
                   style={{ boxShadow: '0 10px 40px -12px var(--shadow-color)' }}
                 >
                   <div className="relative aspect-video overflow-hidden">
-                    <img src={post.image} alt={lang === 'fr' ? post.titleFr : post.titleEn} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img src={post.imageUrl} alt={lang === 'fr' ? post.titleFr : post.titleEn} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute left-3 top-3 rounded-full glass-strong px-3 py-1 text-xs font-semibold text-gold-400">
                       {categoryLabel(post.category, lang)}
                     </div>
                   </div>
                   <div className="p-6">
                     <div className="mb-2 flex items-center gap-3 text-xs" style={{ color: 'var(--text-soft)' }}>
-                      <span>{new Date(post.created_at).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US')}</span>
+                      <span>{new Date(post.createdAt).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US')}</span>
                       <span>•</span>
                       <span>{post.read_time} min</span>
                     </div>

@@ -37,7 +37,9 @@ export default function Services() {
           ) : (
             <div className="space-y-6">
               {(services || []).map((service, i) => {
-                const Icon = (Icons as any)[service.icon] || Icons.FileText;
+                // Handle both emoji icons and Lucide icon names
+                const isEmoji = service.icon.length <= 2; // Emojis are 1-2 chars
+                const Icon = isEmoji ? null : ((Icons as any)[service.icon] || Icons.FileText);
                 // Handle JSONB structure from database
                 const benefits = service.benefits?.[lang] || service.benefits?.fr || [];
                 const processSteps = Array.isArray(service.process)
@@ -58,7 +60,11 @@ export default function Services() {
                       {/* Icon - Left */}
                       <div className="shrink-0">
                         <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-gradient text-navy-900 shadow-lg">
-                          <Icon className="h-7 w-7" />
+                          {isEmoji ? (
+                            <span className="text-3xl">{service.icon}</span>
+                          ) : (
+                            <Icon className="h-7 w-7" />
+                          )}
                         </div>
                       </div>
 

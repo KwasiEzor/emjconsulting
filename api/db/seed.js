@@ -23,14 +23,14 @@ async function seed() {
     await db.execute(sql`
       INSERT INTO destinations (id, name, description, image_url, featured, created_at)
       VALUES
-        (gen_random_uuid(), 'Canada', 'Visa touristique, études et résidence permanente. Procédure en ligne simplifiée via AVE ou permis d''études.', '/images/destinations/canada.jpg', 'true', now()),
-        (gen_random_uuid(), 'France', 'Visa Schengen court séjour (90 jours) et long séjour. Expertise sur visas étudiants et professionnels.', '/images/destinations/france.jpg', 'true', now()),
-        (gen_random_uuid(), 'États-Unis', 'Visa B1/B2 tourisme et affaires, visa F1 étudiant. Préparation à l''entretien consulaire incluse.', '/images/destinations/usa.jpg', 'true', now()),
-        (gen_random_uuid(), 'Royaume-Uni', 'Standard Visitor Visa et Student Visa. Accompagnement post-Brexit et nouveaux systèmes en ligne.', '/images/destinations/uk.jpg', 'true', now()),
-        (gen_random_uuid(), 'Dubaï (EAU)', 'Visa touristique 30/90 jours, visa investisseur et Golden Visa. Traitement rapide en 48-72h.', '/images/destinations/dubai.jpg', 'false', now()),
-        (gen_random_uuid(), 'Australie', 'eVisitor et visa Working Holiday. Services pour étudiants internationaux et skilled migration.', '/images/destinations/australia.jpg', 'false', now()),
-        (gen_random_uuid(), 'Allemagne', 'Visa Schengen et permis de résidence. Spécialisation visa job seeker et Blue Card EU.', '/images/destinations/germany.jpg', 'false', now()),
-        (gen_random_uuid(), 'Espagne', 'Visa Schengen et visa non-lucratif. Accompagnement pour Golden Visa investisseur.', '/images/destinations/spain.jpg', 'false', now())
+        (gen_random_uuid(), 'Canada', 'Visa touristique, études et résidence permanente. Procédure en ligne simplifiée via AVE ou permis d''études.', '/images/dest-canada.jpg', 'true', now()),
+        (gen_random_uuid(), 'France', 'Visa Schengen court séjour (90 jours) et long séjour. Expertise sur visas étudiants et professionnels.', '/images/dest-france.jpg', 'true', now()),
+        (gen_random_uuid(), 'États-Unis', 'Visa B1/B2 tourisme et affaires, visa F1 étudiant. Préparation à l''entretien consulaire incluse.', '/images/dest-usa.jpg', 'true', now()),
+        (gen_random_uuid(), 'Royaume-Uni', 'Standard Visitor Visa et Student Visa. Accompagnement post-Brexit et nouveaux systèmes en ligne.', '/images/dest-uk.jpg', 'true', now()),
+        (gen_random_uuid(), 'Dubaï (EAU)', 'Visa touristique 30/90 jours, visa investisseur et Golden Visa. Traitement rapide en 48-72h.', '/images/dest-dubai.jpg', 'false', now()),
+        (gen_random_uuid(), 'Australie', 'eVisitor et visa Working Holiday. Services pour étudiants internationaux et skilled migration.', '/images/dest-canada.jpg', 'false', now()),
+        (gen_random_uuid(), 'Allemagne', 'Visa Schengen et permis de résidence. Spécialisation visa job seeker et Blue Card EU.', '/images/dest-allemagne.jpg', 'false', now()),
+        (gen_random_uuid(), 'Espagne', 'Visa Schengen et visa non-lucratif. Accompagnement pour Golden Visa investisseur.', '/images/dest-espagne.jpg', 'false', now())
       ON CONFLICT DO NOTHING;
     `);
 
@@ -38,12 +38,12 @@ async function seed() {
     await db.execute(sql`
       INSERT INTO testimonials (id, name, role, content, image_url, rating, created_at)
       VALUES
-        (gen_random_uuid(), 'Amadou Diallo', 'Entrepreneur, Dakar', 'EMJ-Consulting m''a aidé à obtenir mon visa d''affaires pour la France en moins de 15 jours. Service professionnel et réactif. Je recommande vivement !', '/images/testimonials/amadou.jpg', '5', now()),
-        (gen_random_uuid(), 'Fatou Ndiaye', 'Étudiante, destination Canada', 'Grâce à leur expertise, j''ai obtenu mon visa étudiant pour le Canada du premier coup. L''équipe m''a guidée à chaque étape. Merci infiniment !', '/images/testimonials/fatou.jpg', '5', now()),
-        (gen_random_uuid(), 'Jean-Marc Kouassi', 'Cadre bancaire, Abidjan', 'Excellent service ! Mon visa Schengen a été approuvé rapidement. L''équipe connaît parfaitement les procédures consulaires.', '/images/testimonials/jeanmarc.jpg', '5', now()),
-        (gen_random_uuid(), 'Aïcha Bamba', 'Médecin, destination Allemagne', 'EMJ-Consulting a traité mon dossier de visa professionnel avec beaucoup de soin. Communication claire et délais respectés.', '/images/testimonials/aicha.jpg', '5', now()),
-        (gen_random_uuid(), 'Moussa Traoré', 'Commerçant, destination Dubaï', 'Service impeccable ! Visa obtenu en 3 jours pour Dubaï. Prix transparent et équipe très disponible.', '/images/testimonials/moussa.jpg', '5', now()),
-        (gen_random_uuid(), 'Sophie Mensah', 'Enseignante, destination UK', 'Après un premier refus, EMJ-Consulting a repris mon dossier et j''ai obtenu mon visa UK. Professionnalisme remarquable.', '/images/testimonials/sophie.jpg', '5', now())
+        (gen_random_uuid(), 'Amadou Diallo', 'Entrepreneur, Dakar', 'EMJ-Consulting m''a aidé à obtenir mon visa d''affaires pour la France en moins de 15 jours. Service professionnel et réactif. Je recommande vivement !', '/images/avatar-1.jpg', '5', now()),
+        (gen_random_uuid(), 'Fatou Ndiaye', 'Étudiante, destination Canada', 'Grâce à leur expertise, j''ai obtenu mon visa étudiant pour le Canada du premier coup. L''équipe m''a guidée à chaque étape. Merci infiniment !', '/images/avatar-2.jpg', '5', now()),
+        (gen_random_uuid(), 'Jean-Marc Kouassi', 'Cadre bancaire, Abidjan', 'Excellent service ! Mon visa Schengen a été approuvé rapidement. L''équipe connaît parfaitement les procédures consulaires.', '/images/avatar-3.jpg', '5', now()),
+        (gen_random_uuid(), 'Aïcha Bamba', 'Médecin, destination Allemagne', 'EMJ-Consulting a traité mon dossier de visa professionnel avec beaucoup de soin. Communication claire et délais respectés.', '/images/avatar-4.jpg', '5', now()),
+        (gen_random_uuid(), 'Moussa Traoré', 'Commerçant, destination Dubaï', 'Service impeccable ! Visa obtenu en 3 jours pour Dubaï. Prix transparent et équipe très disponible.', '/images/avatar-5.jpg', '5', now()),
+        (gen_random_uuid(), 'Sophie Mensah', 'Enseignante, destination UK', 'Après un premier refus, EMJ-Consulting a repris mon dossier et j''ai obtenu mon visa UK. Professionnalisme remarquable.', '/images/avatar-5.jpg', '5', now())
       ON CONFLICT DO NOTHING;
     `);
 
@@ -57,7 +57,7 @@ async function seed() {
          'Guide complet pour constituer un dossier de visa Schengen solide et augmenter vos chances d''approbation.',
          '<h2>Documents requis</h2><p>Pour un visa Schengen, vous devez fournir : passeport valide 3 mois après le retour, photos d''identité récentes, attestation d''assurance voyage, justificatifs financiers, réservation d''hébergement et billet d''avion.</p><h2>Conseils pratiques</h2><p>Anticipez votre demande 3 mois avant le départ. Vérifiez que tous les documents sont traduits si nécessaire. Préparez une lettre de motivation claire expliquant l''objet de votre voyage.</p>',
          'Marie Kouadio',
-         '/images/blog/visa-schengen.jpg',
+         '/images/blog-1.jpg',
          'true',
          now()),
         (gen_random_uuid(),
@@ -66,7 +66,7 @@ async function seed() {
          'Découvrez les erreurs fréquentes qui causent le refus de visa étudiant canadien et comment les éviter.',
          '<h2>Erreur #1 : Preuve de fonds insuffisante</h2><p>Le Canada exige la preuve de 10 000 CAD + frais de scolarité pour la première année.</p><h2>Erreur #2 : Lettre de motivation générique</h2><p>Votre lettre doit être personnalisée et expliquer votre projet d''études de manière convaincante.</p>',
          'Kofi Mensah',
-         '/images/blog/visa-canada.jpg',
+         '/images/blog-2.jpg',
          'true',
          now()),
         (gen_random_uuid(),
@@ -75,7 +75,7 @@ async function seed() {
          'Conseils pratiques pour aborder sereinement votre entretien consulaire américain et maximiser vos chances.',
          '<h2>Avant l''entretien</h2><p>Arrivez 30 minutes à l''avance. Apportez tous vos documents originaux. Habillez-vous de manière professionnelle.</p><h2>Pendant l''entretien</h2><p>Répondez de manière concise et honnête. Démontrez vos attaches avec votre pays d''origine. Restez calme et courtois.</p>',
          'Aminata Sow',
-         '/images/blog/visa-usa.jpg',
+         '/images/blog-3.jpg',
          'true',
          now())
       ON CONFLICT DO NOTHING;

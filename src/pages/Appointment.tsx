@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Clock, CheckCircle2, ChevronLeft, ChevronRight, User, Mail, Phone, FileText, X } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
@@ -10,8 +10,10 @@ interface BookedSlot { date: string; time: string; }
 
 export default function Appointment() {
   const { lang, t } = useApp();
-  const { data: services } = useFetch<Service[]>('/api/services');
-  const { data: booked } = useFetch<BookedSlot[]>('/api/appointments');
+  const { data: servicesData } = useFetch<Service[]>('/api/services');
+  const { data: bookedData } = useFetch<BookedSlot[]>('/api/appointments');
+  const services = (servicesData || []) as unknown as Service[];
+  const booked = (bookedData || []) as unknown as BookedSlot[];
 
   const [step, setStep] = useState(1);
   const [service, setService] = useState('');
@@ -23,7 +25,7 @@ export default function Appointment() {
   const [monthOffset, setMonthOffset] = useState(0);
 
   const times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
-  const bookedSet = new Set((booked || []).map((b) => `${b.date}|${b.time}`));
+  const bookedSet = new Set(booked.map((b) => `${b.date}|${b.time}`));
 
   // Calendar logic
   const today = new Date();
@@ -135,8 +137,8 @@ export default function Appointment() {
                   <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                     <h3 className="mb-5 font-display text-xl font-bold" style={{ color: 'var(--text)' }}>{t.appointment.step1}</h3>
                     <div className="grid gap-3 sm:grid-cols-2">
-                      {(services || []).map((s) => {
-                        const Icon = (Icons as any)[s.icon] || Icons.FileText;
+                      {services.map((s) => {
+                        const Icon = (Icons as unknown as Record<string, React.ComponentType<{className?: string}>>)[s.icon] || Icons.FileText;
                         const active = service === (lang === 'fr' ? s.titleFr : s.titleEn);
                         return (
                           <button key={s.id} onClick={() => setService(lang === 'fr' ? s.titleFr : s.titleEn)} className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-all ${active ? 'border-gold-400 bg-gold-400/10' : 'hover:border-gold-400/50'}`} style={{ borderColor: active ? undefined : 'var(--border)' }}>

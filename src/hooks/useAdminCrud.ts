@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { adminFetch } from '../lib/adminFetch';
 
 export interface ContactMessage {
-  id: number;
+  id: string;
   name: string;
   email: string;
   phone: string | null;
@@ -13,7 +13,7 @@ export interface ContactMessage {
 }
 
 export interface AppointmentFull {
-  id: number;
+  id: string;
   service: string;
   date: string;
   time: string;
@@ -26,13 +26,13 @@ export interface AppointmentFull {
 }
 
 export interface Subscriber {
-  id: number;
+  id: string;
   email: string;
   created_at: string;
 }
 
 /** Generic admin CRUD hook for any resource */
-export function useAdminCrud<T extends { id: number }>(endpoint: string) {
+export function useAdminCrud<T extends { id: string }>(endpoint: string) {
   const [items, setItems] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -46,8 +46,8 @@ export function useAdminCrud<T extends { id: number }>(endpoint: string) {
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setItems(data);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (e: unknown) {
+      setError((e as Error).message);
     } finally {
       setLoading(false);
     }
@@ -63,14 +63,14 @@ export function useAdminCrud<T extends { id: number }>(endpoint: string) {
       if (!res.ok) throw new Error('Failed to create');
       await fetchAll();
       return { error: null };
-    } catch (e: any) {
-      return { error: e.message };
+    } catch (e: unknown) {
+      return { error: (e as Error).message };
     } finally {
       setSaving(false);
     }
   }, [endpoint, fetchAll]);
 
-  const update = useCallback(async (id: number, updates: Partial<T>) => {
+  const update = useCallback(async (id: string, updates: Partial<T>) => {
     setSaving(true);
     try {
       const res = await adminFetch(endpoint, {
@@ -80,14 +80,14 @@ export function useAdminCrud<T extends { id: number }>(endpoint: string) {
       if (!res.ok) throw new Error('Failed to update');
       await fetchAll();
       return { error: null };
-    } catch (e: any) {
-      return { error: e.message };
+    } catch (e: unknown) {
+      return { error: (e as Error).message };
     } finally {
       setSaving(false);
     }
   }, [endpoint, fetchAll]);
 
-  const remove = useCallback(async (id: number) => {
+  const remove = useCallback(async (id: string) => {
     setSaving(true);
     try {
       const res = await adminFetch(endpoint, {
@@ -97,8 +97,8 @@ export function useAdminCrud<T extends { id: number }>(endpoint: string) {
       if (!res.ok) throw new Error('Failed to delete');
       await fetchAll();
       return { error: null };
-    } catch (e: any) {
-      return { error: e.message };
+    } catch (e: unknown) {
+      return { error: (e as Error).message };
     } finally {
       setSaving(false);
     }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Trash2, Download } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import PageHeader from '../../components/admin/PageHeader';
 import ConfirmDialog from '../../components/admin/ConfirmDialog';

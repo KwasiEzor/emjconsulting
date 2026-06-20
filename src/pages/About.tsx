@@ -34,7 +34,7 @@ export default function About() {
       <section className="relative overflow-hidden bg-navy-900 pt-36 pb-20 text-white">
         <div className="absolute inset-0">
           <img src="/images/about-team.jpg" alt="" className="h-full w-full object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-900/80 to-navy-900/60" />
+          <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-navy-900/80 to-navy-900/60" />
         </div>
         <div className="absolute inset-0 bg-grid-pattern opacity-20" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -63,7 +63,7 @@ export default function About() {
                 className="group relative overflow-hidden rounded-3xl glass p-8"
                 style={{ boxShadow: '0 10px 40px -12px var(--shadow-color)' }}
               >
-                <div className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${p.color} text-white shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-6`}>
+                <div className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br ${p.color} text-white shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-6`}>
                   <p.Icon className="h-8 w-8" />
                 </div>
                 <h3 className="mb-3 font-display text-2xl font-bold" style={{ color: 'var(--text)' }}>{p.title}</h3>
@@ -106,7 +106,7 @@ export default function About() {
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <SectionHeading eyebrow="Timeline" title={t.about.timelineTitle} subtitle={t.about.timelineSub} light />
           <div className="relative mt-16">
-            <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-gold-400 via-gold-400/40 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
+            <div className="absolute left-4 top-0 h-full w-0.5 bg-linear-to-b from-gold-400 via-gold-400/40 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
             <div className="space-y-12">
               {timeline.map((item, i) => (
                 <motion.div

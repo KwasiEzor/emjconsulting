@@ -19,20 +19,16 @@ const navItems = [
   { to: '/admin/subscribers', label: 'Subscribers', icon: Users },
 ];
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
-  const { user, signOut } = useAuth();
-  const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const NavLinks = () => (
+function NavLinks({ pathname, onLinkClick }: { pathname: string; onLinkClick: () => void }) {
+  return (
     <nav className="flex flex-col gap-1">
       {navItems.map((item) => {
-        const isActive = item.end ? location.pathname === item.to : location.pathname.startsWith(item.to);
+        const isActive = item.end ? pathname === item.to : pathname.startsWith(item.to);
         return (
           <Link
             key={item.to}
             to={item.to}
-            onClick={() => setSidebarOpen(false)}
+            onClick={onLinkClick}
             className={`group flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all ${
               isActive
                 ? 'bg-gold-gradient text-navy-900 shadow-lg'
@@ -46,6 +42,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       })}
     </nav>
   );
+}
+
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  const { user, signOut } = useAuth();
+  const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-navy-950">
@@ -60,7 +62,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <div className="text-[10px] uppercase tracking-widest text-white/40">Dashboard</div>
           </div>
         </Link>
-        <NavLinks />
+        <NavLinks pathname={location.pathname} onLinkClick={() => setSidebarOpen(false)} />
         <div className="mt-auto space-y-2 border-t border-white/10 pt-4">
           <Link to="/" className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white">
             <ExternalLink className="h-[18px] w-[18px]" /> View Site
@@ -117,7 +119,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   <X className="h-5 w-5" />
                 </button>
               </div>
-              <NavLinks />
+              <NavLinks pathname={location.pathname} onLinkClick={() => setSidebarOpen(false)} />
               <div className="mt-6 border-t border-white/10 pt-4">
                 <Link to="/" className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-white/60">
                   <ExternalLink className="h-[18px] w-[18px]" /> View Site

@@ -10,7 +10,7 @@ export default function FaqSection() {
   const { data: faqs, loading } = useFetch<Faq[]>('/api/faqs');
   const [open, setOpen] = useState<number | null>(0);
 
-  const items = faqs || [];
+  const items = (faqs || []) as unknown as Faq[];
 
   return (
     <section className="relative py-24">

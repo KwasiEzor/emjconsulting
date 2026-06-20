@@ -17,8 +17,8 @@ export const translations = {
       getStarted: 'Commencer',
     },
     hero: {
-      title: 'Votre partenaire de confiance pour vos voyages et vos demandes de visa',
-      subtitle: 'EMJ-Consulting accompagne particuliers, étudiants et professionnels dans leurs démarches de voyage et d\'immigration.',
+      title: 'Expert en visa et immigration',
+      subtitle: 'Accompagnement personnalisé pour vos démarches de visa et d\'immigration.',
       cta1: 'Commencer maintenant',
       cta2: 'Prendre rendez-vous',
       scroll: 'Défiler',
@@ -171,8 +171,8 @@ export const translations = {
       getStarted: 'Get Started',
     },
     hero: {
-      title: 'Your trusted partner for travel and visa applications',
-      subtitle: 'EMJ-Consulting supports individuals, students and professionals in their travel and immigration procedures.',
+      title: 'Visa & Immigration Experts',
+      subtitle: 'Personalized support for your visa and immigration journey.',
       cta1: 'Get started now',
       cta2: 'Book an appointment',
       scroll: 'Scroll',

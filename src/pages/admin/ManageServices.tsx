@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import PageHeader from '../../components/admin/PageHeader';
@@ -37,10 +36,10 @@ export default function ManageServices() {
   );
 
   const columns = [
-    { key: 'icon', label: 'Icon', render: (s: Service) => { const Icon = (Icons as any)[s.icon] || Icons.FileText; return <Icon className="h-5 w-5 text-gold-400" />; } },
+    { key: 'icon', label: 'Icon', render: (s: Service) => { const Icon = (Icons as unknown as Record<string, React.ComponentType<{className?: string}>>)[s.icon] || Icons.FileText; return <Icon className="h-5 w-5 text-gold-400" />; } },
     { key: 'titleFr', label: 'Title (FR)', render: (s: Service) => <span className="font-medium text-white">{s.titleFr}</span> },
     { key: 'titleEn', label: 'Title (EN)' },
-    { key: 'desc_fr', label: 'Description', render: (s: Service) => <span className="line-clamp-1 max-w-xs text-white/50">{s.desc_fr}</span> },
+    { key: 'descriptionFr', label: 'Description', render: (s: Service) => <span className="line-clamp-1 max-w-xs text-white/50">{s.descriptionFr}</span> },
   ];
 
   return (
@@ -61,16 +60,8 @@ export default function ManageServices() {
             <Field label="Title (FR)" required><TextInput value={form.titleFr || ''} onChange={(e) => setForm({ ...form, titleFr: e.target.value })} required /></Field>
             <Field label="Title (EN)" required><TextInput value={form.titleEn || ''} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} required /></Field>
           </FormGrid>
-          <Field label="Description (FR)" required><TextArea rows={2} value={form.desc_fr || ''} onChange={(e) => setForm({ ...form, desc_fr: e.target.value })} required /></Field>
-          <Field label="Description (EN)" required><TextArea rows={2} value={form.desc_en || ''} onChange={(e) => setForm({ ...form, desc_en: e.target.value })} required /></Field>
-          <FormGrid>
-            <Field label="Benefits (FR) — one per line" required><TextArea rows={4} value={form.benefits_fr || ''} onChange={(e) => setForm({ ...form, benefits_fr: e.target.value })} required /></Field>
-            <Field label="Benefits (EN) — one per line" required><TextArea rows={4} value={form.benefits_en || ''} onChange={(e) => setForm({ ...form, benefits_en: e.target.value })} required /></Field>
-          </FormGrid>
-          <FormGrid>
-            <Field label="Process (FR) — one per line" required><TextArea rows={4} value={form.process_fr || ''} onChange={(e) => setForm({ ...form, process_fr: e.target.value })} required /></Field>
-            <Field label="Process (EN) — one per line" required><TextArea rows={4} value={form.process_en || ''} onChange={(e) => setForm({ ...form, process_en: e.target.value })} required /></Field>
-          </FormGrid>
+          <Field label="Description (FR)" required><TextArea rows={2} value={form.descriptionFr || ''} onChange={(e) => setForm({ ...form, descriptionFr: e.target.value })} required /></Field>
+          <Field label="Description (EN)" required><TextArea rows={2} value={form.descriptionEn || ''} onChange={(e) => setForm({ ...form, descriptionEn: e.target.value })} required /></Field>
           <FormActions saving={saving} onCancel={() => setModalOpen(false)} isEdit={!!editItem} />
         </form>
       </Modal>

@@ -10,8 +10,8 @@ export interface Service {
   descriptionEn: string;
   icon: string;
   slug: string;
-  benefits?: any;
-  process?: any;
+  benefits?: Record<string, string[]>;
+  process?: Array<{titleFr: string; titleEn: string}>;
   price?: string;
   duration?: string;
   featured?: boolean;
@@ -28,7 +28,7 @@ export interface Destination {
   descriptionFr: string;
   descriptionEn: string;
   visaDuration?: string;
-  requirements?: any;
+  requirements?: Record<string, unknown>;
   featured?: boolean;
   continent?: string;
   order?: number;

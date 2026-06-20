@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Briefcase, Globe, Star, HelpCircle, Newspaper,
-  Calendar, Mail, Users, TrendingUp, ArrowUpRight, Inbox
+  Calendar, Mail, Users, ArrowUpRight, Inbox
 } from 'lucide-react';
 import { adminFetch } from '../../lib/adminFetch';
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -16,8 +16,8 @@ interface Counts {
 
 export default function AdminDashboard() {
   const [counts, setCounts] = useState<Counts | null>(null);
-  const [recentMsgs, setRecentMsgs] = useState<any[]>([]);
-  const [recentAppts, setRecentAppts] = useState<any[]>([]);
+  const [recentMsgs, setRecentMsgs] = useState<Record<string, unknown>[]>([]);
+  const [recentAppts, setRecentAppts] = useState<Record<string, unknown>[]>([]);
 
   useEffect(() => {
     Promise.all([
@@ -97,12 +97,12 @@ export default function AdminDashboard() {
             {recentAppts.length === 0 ? (
               <p className="py-6 text-center text-sm text-white/30">No appointments yet</p>
             ) : recentAppts.map((a) => (
-              <div key={a.id} className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2.5">
+              <div key={String(a.id)} className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2.5">
                 <div className="min-w-0">
-                  <div className="truncate text-sm font-medium text-white">{a.name}</div>
-                  <div className="truncate text-xs text-white/40">{a.service} • {a.date} at {a.time}</div>
+                  <div className="truncate text-sm font-medium text-white">{String(a.name)}</div>
+                  <div className="truncate text-xs text-white/40">{String(a.service)} • {String(a.date)} at {String(a.time)}</div>
                 </div>
-                <StatusBadge status={a.status} />
+                <StatusBadge status={String(a.status)} />
               </div>
             ))}
           </div>
@@ -120,12 +120,12 @@ export default function AdminDashboard() {
             {recentMsgs.length === 0 ? (
               <p className="py-6 text-center text-sm text-white/30">No messages yet</p>
             ) : recentMsgs.map((m) => (
-              <div key={m.id} className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2.5">
+              <div key={String(m.id)} className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2.5">
                 <div className="min-w-0">
-                  <div className="truncate text-sm font-medium text-white">{m.name}</div>
-                  <div className="truncate text-xs text-white/40">{m.email}</div>
+                  <div className="truncate text-sm font-medium text-white">{String(m.name)}</div>
+                  <div className="truncate text-xs text-white/40">{String(m.email)}</div>
                 </div>
-                <StatusBadge status={m.status || 'new'} />
+                <StatusBadge status={String(m.status || 'new')} />
               </div>
             ))}
           </div>

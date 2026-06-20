@@ -10,7 +10,7 @@ export default function ServicesSection({ limit }: { limit?: number }) {
   const { lang, t } = useApp();
   const { data: services, loading } = useFetch<Service[]>('/api/services');
 
-  const items = limit && services ? services.slice(0, limit) : services;
+  const items = (services ? (limit ? services.slice(0, limit) : services) : []) as unknown as Service[];
 
   return (
     <section className="relative py-24" id="services">
@@ -28,8 +28,8 @@ export default function ServicesSection({ limit }: { limit?: number }) {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items?.map((service, i) => {
-              const Icon = (Icons as any)[service.icon] || Icons.FileText;
+            {items.map((service, i) => {
+              const Icon = (Icons as unknown as Record<string, React.ComponentType<{className?: string}>>)[service.icon] || Icons.FileText;
               return (
                 <motion.div
                   key={service.id}

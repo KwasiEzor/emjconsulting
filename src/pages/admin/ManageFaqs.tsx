@@ -28,8 +28,8 @@ export default function ManageFaqs() {
   };
 
   const columns = [
-    { key: 'question_fr', label: 'Question (FR)', render: (f: Faq) => <span className="font-medium text-white">{f.question_fr}</span> },
-    { key: 'answer_fr', label: 'Answer (FR)', render: (f: Faq) => <span className="line-clamp-2 max-w-md text-white/50">{f.answer_fr}</span> },
+    { key: 'questionFr', label: 'Question (FR)', render: (f: Faq) => <span className="font-medium text-white">{f.questionFr}</span> },
+    { key: 'answerFr', label: 'Answer (FR)', render: (f: Faq) => <span className="line-clamp-2 max-w-md text-white/50">{f.answerFr}</span> },
   ];
 
   return (
@@ -39,10 +39,10 @@ export default function ManageFaqs() {
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editItem ? 'Edit FAQ' : 'Add FAQ'}>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <Field label="Question (FR)" required><TextArea rows={2} value={form.question_fr || ''} onChange={(e) => setForm({ ...form, question_fr: e.target.value })} required /></Field>
-          <Field label="Question (EN)" required><TextArea rows={2} value={form.question_en || ''} onChange={(e) => setForm({ ...form, question_en: e.target.value })} required /></Field>
-          <Field label="Answer (FR)" required><TextArea rows={4} value={form.answer_fr || ''} onChange={(e) => setForm({ ...form, answer_fr: e.target.value })} required /></Field>
-          <Field label="Answer (EN)" required><TextArea rows={4} value={form.answer_en || ''} onChange={(e) => setForm({ ...form, answer_en: e.target.value })} required /></Field>
+          <Field label="Question (FR)" required><TextArea rows={2} value={form.questionFr || ''} onChange={(e) => setForm({ ...form, questionFr: e.target.value })} required /></Field>
+          <Field label="Question (EN)" required><TextArea rows={2} value={form.questionEn || ''} onChange={(e) => setForm({ ...form, questionEn: e.target.value })} required /></Field>
+          <Field label="Answer (FR)" required><TextArea rows={4} value={form.answerFr || ''} onChange={(e) => setForm({ ...form, answerFr: e.target.value })} required /></Field>
+          <Field label="Answer (EN)" required><TextArea rows={4} value={form.answerEn || ''} onChange={(e) => setForm({ ...form, answerEn: e.target.value })} required /></Field>
           <FormActions saving={saving} onCancel={() => setModalOpen(false)} isEdit={!!editItem} />
         </form>
       </Modal>

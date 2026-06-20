@@ -9,7 +9,7 @@ export default function DestinationsSection({ limit }: { limit?: number }) {
   const { lang, t } = useApp();
   const { data: destinations, loading } = useFetch<Destination[]>('/api/destinations');
 
-  const items = limit && destinations ? destinations.slice(0, limit) : destinations;
+  const items = (destinations ? (limit ? destinations.slice(0, limit) : destinations) : []) as unknown as Destination[];
 
   return (
     <section className="relative py-24" id="destinations">
@@ -24,7 +24,7 @@ export default function DestinationsSection({ limit }: { limit?: number }) {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items?.map((dest, i) => (
+            {items.map((dest, i) => (
               <motion.div
                 key={dest.id}
                 initial={{ opacity: 0, y: 40 }}
@@ -42,7 +42,7 @@ export default function DestinationsSection({ limit }: { limit?: number }) {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-900/40 to-transparent" />
-                  <div className="absolute right-4 top-4 rounded-full glass-strong px-3 py-1.5 text-2xl">{dest.flag}</div>
+                  <div className="absolute right-4 top-4 rounded-full glass-strong px-3 py-1.5 text-2xl">{dest.flagEmoji}</div>
                   <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                     <h3 className="font-display text-2xl font-bold drop-shadow-lg">{lang === 'fr' ? dest.nameFr : dest.nameEn}</h3>
                     <p className="mt-1 line-clamp-2 text-sm text-white/80">{lang === 'fr' ? dest.descriptionFr : dest.descriptionEn}</p>

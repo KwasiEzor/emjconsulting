@@ -4,17 +4,10 @@ import PageHeader from '../../components/admin/PageHeader';
 import DataTable from '../../components/admin/DataTable';
 import Modal from '../../components/admin/Modal';
 import ConfirmDialog from '../../components/admin/ConfirmDialog';
-import { Field, TextInput, TextArea, Select, FormGrid } from '../../components/admin/FormFields';
+import { Field, TextInput, TextArea, FormGrid } from '../../components/admin/FormFields';
 import { FormActions } from './ManageServices';
 import { useAdminCrud } from '../../hooks/useAdminCrud';
 import { BlogPost } from '../../hooks/useData';
-
-const CATEGORIES = [
-  { value: 'tips', label: 'Conseils voyage' },
-  { value: 'student', label: 'Visa étudiant' },
-  { value: 'immigration', label: 'Immigration' },
-  { value: 'news', label: 'Actualités' },
-];
 
 export default function ManageBlog() {
   const { items, loading, saving, fetchAll, create, update, remove } = useAdminCrud<BlogPost>('/api/blog-posts');
@@ -26,12 +19,12 @@ export default function ManageBlog() {
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
-  const openAdd = () => { setEditItem(null); setForm({ category: 'tips', read_time: 5, author: 'EMJ Team' }); setModalOpen(true); };
+  const openAdd = () => { setEditItem(null); setForm({ readingTime: 5, author: 'EMJ Team' }); setModalOpen(true); };
   const openEdit = (item: BlogPost) => { setEditItem(item); setForm(item); setModalOpen(true); };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = { ...form, read_time: Number(form.read_time) };
+    const payload = { ...form, readingTime: Number(form.readingTime) };
     const { error } = editItem ? await update(editItem.id, payload) : await create(payload);
     if (!error) setModalOpen(false);
   };
@@ -39,12 +32,12 @@ export default function ManageBlog() {
   const filtered = items.filter((p) => p.titleFr.toLowerCase().includes(search.toLowerCase()) || p.titleEn.toLowerCase().includes(search.toLowerCase()));
 
   const columns = [
-    { key: 'image', label: 'Image', render: (p: BlogPost) => <img src={p.image} alt="" className="h-10 w-14 rounded object-cover" /> },
+    { key: 'imageUrl', label: 'Image', render: (p: BlogPost) => <img src={p.imageUrl} alt="" className="h-10 w-14 rounded object-cover" /> },
     { key: 'titleFr', label: 'Title (FR)', render: (p: BlogPost) => <span className="font-medium text-white">{p.titleFr}</span> },
-    { key: 'category', label: 'Category', render: (p: BlogPost) => <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs">{p.category}</span> },
+    { key: 'categoryId', label: 'Category', render: (p: BlogPost) => <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs">{p.categoryId}</span> },
     { key: 'author', label: 'Author' },
-    { key: 'read_time', label: 'Read', render: (p: BlogPost) => <span>{p.read_time} min</span> },
-    { key: 'created_at', label: 'Date', render: (p: BlogPost) => <span className="text-white/50">{new Date(p.created_at).toLocaleDateString()}</span> },
+    { key: 'readingTime', label: 'Read', render: (p: BlogPost) => <span>{p.readingTime} min</span> },
+    { key: 'createdAt', label: 'Date', render: (p: BlogPost) => <span className="text-white/50">{new Date(p.createdAt).toLocaleDateString()}</span> },
   ];
 
   return (
@@ -59,16 +52,12 @@ export default function ManageBlog() {
             <Field label="Title (EN)" required><TextInput value={form.titleEn || ''} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} required /></Field>
           </FormGrid>
           <FormGrid>
-            <Field label="Category" required>
-              <Select value={form.category || 'tips'} onChange={(e) => setForm({ ...form, category: e.target.value })}>
-                {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </Select>
-            </Field>
+            <Field label="Category ID" required><TextInput value={form.categoryId || ''} onChange={(e) => setForm({ ...form, categoryId: e.target.value })} placeholder="UUID" required /></Field>
             <Field label="Author" required><TextInput value={form.author || ''} onChange={(e) => setForm({ ...form, author: e.target.value })} required /></Field>
           </FormGrid>
           <FormGrid>
-            <Field label="Image Path" required><TextInput value={form.image || ''} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="/images/blog-1.jpg" required /></Field>
-            <Field label="Read Time (min)" required><TextInput type="number" min="1" value={form.read_time ?? ''} onChange={(e) => setForm({ ...form, read_time: Number(e.target.value) })} required /></Field>
+            <Field label="Image URL" required><TextInput value={form.imageUrl || ''} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="/images/blog-1.jpg" required /></Field>
+            <Field label="Read Time (min)" required><TextInput type="number" min="1" value={form.readingTime ?? ''} onChange={(e) => setForm({ ...form, readingTime: Number(e.target.value) })} required /></Field>
           </FormGrid>
           <Field label="Excerpt (FR)" required><TextArea rows={2} value={form.excerptFr || ''} onChange={(e) => setForm({ ...form, excerptFr: e.target.value })} required /></Field>
           <Field label="Excerpt (EN)" required><TextArea rows={2} value={form.excerptEn || ''} onChange={(e) => setForm({ ...form, excerptEn: e.target.value })} required /></Field>

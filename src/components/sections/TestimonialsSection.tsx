@@ -6,12 +6,12 @@ import { useApp } from '../../contexts/AppContext';
 import { useFetch, Testimonial } from '../../hooks/useData';
 
 export default function TestimonialsSection() {
-  const { lang, t } = useApp();
+  const { t } = useApp();
   const { data: testimonials, loading } = useFetch<Testimonial[]>('/api/testimonials');
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const items = testimonials || [];
+  const items = (testimonials || []) as unknown as Testimonial[];
   const count = items.length;
 
   const go = useCallback((dir: number) => {
@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
                 <Quote className="mx-auto mb-6 h-12 w-12 text-gold-400" fill="currentColor" />
                 <div className="mb-5 flex justify-center gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={`h-5 w-5 ${i < current.rating ? 'text-gold-400' : ''}`} fill="currentColor" style={{ opacity: i < current.rating ? 1 : 0.2 }} />
+                    <Star key={i} className={`h-5 w-5 ${i < Number(current.rating) ? 'text-gold-400' : ''}`} fill="currentColor" style={{ opacity: i < Number(current.rating) ? 1 : 0.2 }} />
                   ))}
                 </div>
                 <p className="mb-8 text-lg leading-relaxed sm:text-xl" style={{ color: 'var(--text)' }}>

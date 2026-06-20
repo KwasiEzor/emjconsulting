@@ -9,7 +9,7 @@ export interface Column<T> {
   className?: string;
 }
 
-export default function DataTable<T extends { id: number }>({
+export default function DataTable<T extends { id: string }>({
   columns,
   data,
   loading,
@@ -67,7 +67,7 @@ export default function DataTable<T extends { id: number }>({
               >
                 {columns.map((col) => (
                   <td key={col.key} className={`px-4 py-3 text-white/80 ${col.className || ''}`}>
-                    {col.render ? col.render(row) : (row as any)[col.key]}
+                    {col.render ? col.render(row) : String((row as Record<string, unknown>)[col.key] ?? '')}
                   </td>
                 ))}
                 {(onEdit || onDelete) && (

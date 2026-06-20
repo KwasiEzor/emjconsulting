@@ -8,15 +8,16 @@ import { categoryLabel } from './Home';
 
 export default function Blog() {
   const { lang, t } = useApp();
-  const { data: posts, loading } = useFetch<BlogPost[]>('/api/blog-posts');
+  const { data, loading } = useFetch<BlogPost[]>('/api/blog-posts');
+  const posts = (data || []) as unknown as BlogPost[];
   const [category, setCategory] = useState('all');
   const [query, setQuery] = useState('');
 
   const categories = ['all', 'tips', 'student', 'immigration', 'news'];
 
   const filtered = useMemo(() => {
-    let list = posts || [];
-    if (category !== 'all') list = list.filter((p) => p.category === category);
+    let list = posts;
+    if (category !== 'all') list = list.filter((p) => p.categoryId === category);
     if (query.trim()) {
       const q = query.toLowerCase();
       list = list.filter((p) =>
@@ -99,12 +100,11 @@ export default function Blog() {
                   >
                     <div className="relative aspect-video overflow-hidden">
                       <img src={post.imageUrl} alt={lang === 'fr' ? post.titleFr : post.titleEn} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute left-3 top-3 rounded-full glass-strong px-3 py-1 text-xs font-semibold text-gold-400">{categoryLabel(post.category, lang)}</div>
                     </div>
                     <div className="flex flex-1 flex-col p-6">
                       <div className="mb-3 flex items-center gap-4 text-xs" style={{ color: 'var(--text-soft)' }}>
                         <span className="flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{new Date(post.createdAt).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US')}</span>
-                        <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{post.read_time} min</span>
+                        <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{post.readingTime} min</span>
                       </div>
                       <h3 className="mb-2 font-display text-lg font-bold leading-snug" style={{ color: 'var(--text)' }}>{lang === 'fr' ? post.titleFr : post.titleEn}</h3>
                       <p className="mb-4 line-clamp-3 flex-1 text-sm" style={{ color: 'var(--text-soft)' }}>{lang === 'fr' ? post.excerptFr : post.excerptEn}</p>

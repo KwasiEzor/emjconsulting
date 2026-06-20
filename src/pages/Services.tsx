@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import * as Icons from 'lucide-react';
 import PageTransition from '../components/PageTransition';
-import SectionHeading from '../components/SectionHeading';
 import CtaSection from '../components/sections/CtaSection';
 import { useApp } from '../contexts/AppContext';
 import { useFetch, Service } from '../hooks/useData';
 
 export default function Services() {
   const { lang, t } = useApp();
-  const { data: services, loading } = useFetch<Service[]>('/api/services');
+  const { data, loading } = useFetch<Service[]>('/api/services');
+  const services = (data || []) as unknown as Service[];
 
   return (
     <PageTransition>
@@ -36,14 +36,14 @@ export default function Services() {
             </div>
           ) : (
             <div className="space-y-6">
-              {(services || []).map((service, i) => {
+              {services.map((service, i) => {
                 // Handle both emoji icons and Lucide icon names
                 const isEmoji = service.icon.length <= 2; // Emojis are 1-2 chars
-                const Icon = isEmoji ? null : ((Icons as any)[service.icon] || Icons.FileText);
+                const Icon = isEmoji ? null : ((Icons as unknown as Record<string, React.ComponentType<{className?: string}>>)[service.icon] || Icons.FileText);
                 // Handle JSONB structure from database
-                const benefits = service.benefits?.[lang] || service.benefits?.fr || [];
-                const processSteps = Array.isArray(service.process)
-                  ? service.process.map((p: any) => lang === 'fr' ? p.titleFr : p.titleEn)
+                const benefits: string[] = service.benefits?.[lang] || service.benefits?.fr || [];
+                const processSteps: string[] = Array.isArray(service.process)
+                  ? service.process.map((p: {titleFr: string; titleEn: string}) => lang === 'fr' ? p.titleFr : p.titleEn)
                   : [];
 
                 return (
@@ -62,9 +62,9 @@ export default function Services() {
                         <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-gradient text-navy-900 shadow-lg">
                           {isEmoji ? (
                             <span className="text-3xl">{service.icon}</span>
-                          ) : (
+                          ) : Icon ? (
                             <Icon className="h-7 w-7" />
-                          )}
+                          ) : null}
                         </div>
                       </div>
 

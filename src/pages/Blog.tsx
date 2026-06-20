@@ -4,12 +4,11 @@ import { Search, Clock, ArrowRight, Calendar, User } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import { useApp } from '../contexts/AppContext';
 import { useFetch, BlogPost } from '../hooks/useData';
-import { categoryLabel } from './Home';
 
 export default function Blog() {
   const { lang, t } = useApp();
   const { data, loading } = useFetch<BlogPost[]>('/api/blog-posts');
-  const posts = (data || []) as unknown as BlogPost[];
+  const posts = useMemo(() => (data || []) as unknown as BlogPost[], [data]);
   const [category, setCategory] = useState('all');
   const [query, setQuery] = useState('');
 
@@ -67,7 +66,7 @@ export default function Blog() {
                   }`}
                   style={{ color: category === c ? undefined : 'var(--text-soft)' }}
                 >
-                  {c === 'all' ? t.common.all : categoryLabel(c, lang)}
+                  {c === 'all' ? t.common.all : (t.blog.categories[c as keyof typeof t.blog.categories] || c)}
                 </button>
               ))}
             </div>

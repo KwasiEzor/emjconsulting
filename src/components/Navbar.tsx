@@ -19,10 +19,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
+  const [prevPath, setPrevPath] = useState(location.pathname);
+  if (location.pathname !== prevPath) {
+    setPrevPath(location.pathname);
     setOpen(false);
     setLangOpen(false);
-  }, [location.pathname]);
+  }
 
   const links = [
     { to: '/', label: t.nav.home },

@@ -19,9 +19,14 @@ export default async function handler(req, res) {
     if (!user) return res.status(401).json({ error: 'Unauthorized' });
 
     if (req.method === 'GET') {
-      const { data, error } = await supabase.from('newsletter_subscribers').select('*').order('created_at', { ascending: false });
+      const { data, error } = await supabase.from('newsletter_subscribers').select('*').order('subscribed_at', { ascending: false });
       if (error) throw error;
-      return res.status(200).json(data || []);
+      const mapped = (data || []).map(s => ({
+        id: s.id,
+        email: s.email,
+        created_at: s.subscribed_at
+      }));
+      return res.status(200).json(mapped);
     }
     if (req.method === 'DELETE') {
       const { id } = req.body;

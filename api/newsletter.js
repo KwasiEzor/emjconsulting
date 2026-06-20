@@ -18,7 +18,11 @@ export default async function handler(req, res) {
         .select()
         .single();
       if (error) throw error;
-      return res.status(201).json(data);
+      return res.status(201).json({
+        id: data.id,
+        email: data.email,
+        created_at: data.subscribed_at
+      });
     }
     res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {

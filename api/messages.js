@@ -19,21 +19,31 @@ export default async function handler(req, res) {
     if (!user) return res.status(401).json({ error: 'Unauthorized' });
 
     if (req.method === 'GET') {
-      const { data, error } = await supabase.from('contact_messages').select('*').order('created_at', { ascending: false });
+      const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: false });
       if (error) throw error;
-      return res.status(200).json(data || []);
+      const mapped = (data || []).map(m => ({
+        ...m,
+        status: m.is_read ? 'read' : 'new'
+      }));
+      return res.status(200).json(mapped);
     }
     if (req.method === 'PUT') {
-      const { id, ...updates } = req.body;
-      const { data, error } = await supabase.from('contact_messages').update(updates).eq('id', id).select().single();
+      const { id, status, ...updates } = req.body;
+      if (status !== undefined) {
+        updates.is_read = (status === 'read');
+      }
+      const { data, error } = await supabase.from('messages').update(updates).eq('id', id).select().single();
       if (error) throw error;
-      return res.status(200).json(data);
+      return res.status(200).json({
+        ...data,
+        status: data.is_read ? 'read' : 'new'
+      });
     }
     if (req.method === 'DELETE') {
       const { id } = req.body;
-      const { error } = await supabase.from('contact_messages').delete().eq('id', id);
+      const { error } = await supabase.from('messages').delete().eq('id', id);
       if (error) throw error;
- return res.status(200).json({ ok: true });
+      return res.status(200).json({ ok: true });
     }
     res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {

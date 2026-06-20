@@ -88,13 +88,3 @@ export default function Home() {
     </PageTransition>
   );
 }
-
-export function categoryLabel(category: string, lang: 'fr' | 'en') {
-  const map: Record<string, { fr: string; en: string }> = {
-    tips: { fr: 'Conseils voyage', en: 'Travel tips' },
-    student: { fr: 'Visa étudiant', en: 'Student visa' },
-    immigration: { fr: 'Immigration', en: 'Immigration' },
-    news: { fr: 'Actualités', en: 'News' },
-  };
-  return map[category]?.[lang] || category;
-}

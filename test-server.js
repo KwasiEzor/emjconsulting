@@ -21,6 +21,8 @@ const server = http.createServer(async (req, res) => {
     '/api/testimonials': './api/testimonials.js',
     '/api/messages': './api/messages.js',
     '/api/newsletter': './api/newsletter.js',
+    '/api/subscribers': './api/subscribers.js',
+    '/api/appointments-admin': './api/appointments-admin.js',
   };
 
   if (apiRoutes[req.url]) {

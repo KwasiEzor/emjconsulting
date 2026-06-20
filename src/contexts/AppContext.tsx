@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { getTranslation, Lang, TranslationKey } from '../lib/translations';
 
@@ -14,19 +15,18 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('fr');
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem('emj-lang') as Lang | null;
+  const [lang, setLangState] = useState<Lang>(() => {
+    return (localStorage.getItem('emj-lang') as Lang) || 'fr';
+  });
+  const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('emj-theme') as Theme | null;
-    if (savedLang) setLangState(savedLang);
-    if (savedTheme) setTheme(savedTheme);
-    else {
+    if (savedTheme) return savedTheme;
+    if (typeof window !== 'undefined') {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+      return prefersDark ? 'dark' : 'light';
     }
-  }, []);
+    return 'dark';
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');

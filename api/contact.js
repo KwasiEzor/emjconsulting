@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Missing required fields' });
       }
       const { data, error } = await supabase
-        .from('contact_messages')
+        .from('messages')
         .insert({ name, email, phone: phone || null, country: country || null, message })
         .select()
         .single();
